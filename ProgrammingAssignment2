@@ -1,0 +1,28 @@
+makeCacheMatrix <- function(x = matrix()) {
+        fa <- NULL
+  
+        set<- function(mat) {
+                x <<- mat 
+        }
+        get <- function() x
+        setfa<- function(q) fa
+        getfa<- function() fa
+        list(set = set,
+             get = get,
+             setfa = setfa,
+             getfa = getfa)
+}
+Solver <- function(x, ...) {
+        fa <- x$getfa()
+        if (!is.null(fa)) {
+                return(fa)
+        }
+        mat <- x$get()
+        fa <- solve(mat, ...)
+        x$setfa(fa)
+        fa
+}
+#Checking for working
+#newmatrix <- makeCacheMatrix(matrix(1:4, 2, 2))
+#newmatrix$get()
+#Solver(newmatrix)
